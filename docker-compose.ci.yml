@@ -6,16 +6,24 @@ services:
     - redis:redis
     ports:
     - 8000:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
   rng:
     image: addteq/dockercoins-rng
+    labels:
+      io.rancher.container.pull_image: always
   worker:
     image: addteq/dockercoins-worker
     links:
     - rng:rng
     - hasher:hasher
     - redis:redis
+    labels:
+      io.rancher.container.pull_image: always
   redis:
     image: redis
+    labels:
+      io.rancher.container.pull_image: always
   hasher:
     image: addteq/dockercoins-hasher
     labels:
