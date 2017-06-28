@@ -1,18 +1,22 @@
-rng:
-  image: addteq/dockercoins-rng:$IMAGE_TAG
-hasher:
-  image: addteq/dockercoins-hasher:$IMAGE_TAG
-webui:
-  image: addteq/dockercoins-webui:$IMAGE_TAG
-  ports:
-  - 8000:80/tcp
-  links:
-  - redis:redis
-redis:
-  image: redis
-worker:
-  image: addteq/dockercoins-worker:$IMAGE_TAG
-  links:
-  - redis:redis
-  - rng:rng
-  - hasher:hasher
+version: '2'
+services:
+  webui:
+    image: addteq/dockercoins-webui
+    links:
+    - redis:redis
+    ports:
+    - 8000:80/tcp
+  rng:
+    image: addteq/dockercoins-rng
+  worker:
+    image: addteq/dockercoins-worker
+    links:
+    - rng:rng
+    - hasher:hasher
+    - redis:redis
+  redis:
+    image: redis
+  hasher:
+    image: addteq/dockercoins-hasher
+    labels:
+      io.rancher.container.pull_image: always
