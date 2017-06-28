@@ -1,7 +1,7 @@
 version: '2'
 services:
   webui:
-    image: offkey/dockercoins-webui:$IMAGE_TAG
+    image: addteq/dockercoins-webui-offkey:$IMAGE_TAG
     links:
     - redis:redis
     ports:
@@ -9,11 +9,11 @@ services:
     labels:
       io.rancher.container.pull_image: always
   rng:
-    image: offkey/dockercoins-rng:$IMAGE_TAG
+    image: addteq/dockercoins-rng-offkey:$IMAGE_TAG
     labels:
       io.rancher.container.pull_image: always
   worker:
-    image: offkey/dockercoins-worker:$IMAGE_TAG
+    image: addteq/dockercoins-worker-offkey:$IMAGE_TAG
     links:
     - rng:rng
     - hasher:hasher
@@ -25,6 +25,6 @@ services:
     labels:
       io.rancher.container.pull_image: always
   hasher:
-    image: offkey/dockercoins-hasher:$IMAGE_TAG
+    image: addteq/dockercoins-hasher-offkey:$IMAGE_TAG
     labels:
       io.rancher.container.pull_image: always
