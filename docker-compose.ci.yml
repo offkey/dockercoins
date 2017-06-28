@@ -1,0 +1,18 @@
+rng:
+  image: addteq/dockercoins-rng
+hasher:
+  image: addteq/dockercoins-hasher
+webui:
+  image: addteq/dockercoins-webui
+  ports:
+  - 8000:80/tcp
+  links:
+  - redis:redis
+redis:
+  image: redis
+worker:
+  image: addteq/dockercoins-worker
+  links:
+  - redis:redis
+  - rng:rng
+  - hasher:hasher
